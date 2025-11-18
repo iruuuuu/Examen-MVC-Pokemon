@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <style>
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .stat-card {
+            background-color: var(--background-light);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        .stat-card p {
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+        .stat-card .trainer-name {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <span>Panel de Administrador</span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Volver al inicio</a>
+            </div>
+        </div>
+
+        <h2>Estadísticas de Entrenadores</h2>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Maestro con más Pokémon Creados</h3>
+                <?php if ($maestro_mas_pokemon): ?>
+                    <p class="trainer-name"><?= $maestro_mas_pokemon['nombre'] ?></p>
+                    <p>Con un total de <strong><?= $maestro_mas_pokemon['total_pokemon'] ?></strong> Pokémon.</p>
+                <?php else: ?>
+                    <p>No hay datos disponibles.</p>
+                <?php endif; ?>
+            </div>
+            <div class="stat-card">
+                <h3>Maestro con más Equipos</h3>
+                <?php if ($maestro_mas_equipos): ?>
+                    <p class="trainer-name"><?= $maestro_mas_equipos['nombre'] ?></p>
+                    <p>Con un total de <strong><?= $maestro_mas_equipos['total_equipos'] ?></strong> equipos.</p>
+                <?php else: ?>
+                    <p>No hay datos disponibles.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

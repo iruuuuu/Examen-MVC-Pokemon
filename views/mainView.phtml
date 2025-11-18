@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex General</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/pokemon-grid.css"> <!-- Nuevo CSS para la cuadrícula -->
+</head>
+
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <?php if (isset($_SESSION['user'])): ?>
+                <div class="user-info">
+                    <img src="public/img/avatars/<?= $_SESSION['user']->getAvatar() ?: 'avatar.jpg' ?>" alt="Avatar">
+                    <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+                </div>
+                <div class="user-actions">
+                    <a href="index.php?c=usuarios&action=perfil">Mi Perfil</a>
+                    <a href="index.php?c=equipos&action=listar">Mis Equipos</a>
+                    <a href="index.php?c=usuarios&action=logout">Logout</a>
+                    <?php if ($_SESSION['user']->getRol() == 'admin'): ?>
+                        <a href="index.php?c=usuarios&action=admin_panel" style="background-color: var(--secondary-color); color: white; padding: 5px 10px; border-radius: 5px;">Panel Admin</a>
+                    <?php endif; ?>
+                </div>
+            <?php else: ?>
+                <div class="user-info">
+                    <span>¡Bienvenido, entrenador!</span>
+                </div>
+                <div class="user-actions">
+                    <a href="index.php?c=usuarios">Iniciar Sesión</a>
+                    <a href="index.php?c=usuarios&register=1">Registrarse</a>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div class="main-header">
+            <h2>Pokédex General</h2>
+            <?php if (isset($_SESSION['user'])): ?>
+                <a href="index.php?c=pokemon&action=crear" class="btn-create">Crear Nuevo Pokémon</a>
+            <?php endif; ?>
+        </div>
+
+        <div class="pokemon-grid">
+            <?php foreach ($pokemons as $pokemon) : ?>
+                <div class="pokemon-card">
+                    <img src="public/img/pokemon/<?= $pokemon->getFoto() ?>" alt="<?= $pokemon->getNombre() ?>">
+                    <h3><?= $pokemon->getNombre() ?></h3>
+                    <p>Tipo: <?= $pokemon->getTipo() ?></p>
+                    <div class="pokemon-actions">
+                        <a href="index.php?c=pokemon&action=ver&id=<?= $pokemon->getId() ?>" class="btn-details">Ver Detalles</a>
+                        <?php if (isset($_SESSION['user']) && $_SESSION['user']->getRol() == 'admin') : ?>
+                            <div class="admin-actions">
+                                <a href="index.php?c=pokemon&action=editar&id=<?= $pokemon->getId() ?>" class="btn-edit">Editar</a>
+                                <a href="index.php?c=pokemon&action=eliminar&id=<?= $pokemon->getId() ?>" class="btn-delete" onclick="return confirm('¿Estás seguro de que quieres eliminar a <?= $pokemon->getNombre() ?>?');">Eliminar</a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</body>
+
+</html>

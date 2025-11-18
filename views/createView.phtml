@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nuevo Pokémon</title>
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Volver al inicio</a>
+                <a href="index.php?c=usuarios&logout=1">Logout</a>
+            </div>
+        </div>
+
+        <h2>Crear Nuevo Pokémon</h2>
+
+        <form action="index.php?c=pokemon&action=crear" method="POST" enctype="multipart/form-data" class="form-centered">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ej: Pikachu" required>
+
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="" disabled selected>Selecciona un tipo</option>
+                <option value="electrico">Eléctrico</option>
+                <option value="fuego">Fuego</option>
+                <option value="tierra">Tierra</option>
+                <option value="lucha">Lucha</option>
+                <option value="agua">Agua</option>
+            </select>
+
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" name="foto">
+
+            <input type="submit" value="Crear Pokémon">
+        </form>
+    </div>
+</body>
+</html>

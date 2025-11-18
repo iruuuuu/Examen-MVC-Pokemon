@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo: <?= $equipo->getNombre() ?></title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/pokemon-grid.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <img src="public/img/avatars/<?= $_SESSION['user']->getAvatar() ?: 'avatar.jpg' ?>" alt="Avatar">
+                <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Pokédex General</a>
+                <a href="index.php?c=equipos&action=listar">Mis Equipos</a>
+                <a href="index.php?c=usuarios&logout=1">Logout</a>
+            </div>
+        </div>
+
+        <h2>Miembros del Equipo: "<?= $equipo->getNombre() ?>"</h2>
+
+        <?php if (empty($pokemon_en_equipo)): ?>
+            <p>Este equipo aún no tiene ningún Pokémon.</p>
+        <?php else: ?>
+            <div class="team-display">
+                <?php foreach ($pokemon_en_equipo as $pokemon) : ?>
+                    <div class="pokemon-card">
+                        <img src="public/img/pokemon/<?= $pokemon->getFoto() ?>" alt="<?= $pokemon->getNombre() ?>">
+                        <h3><?= $pokemon->getNombre() ?></h3>
+                        <p>Tipo: <?= $pokemon->getTipo() ?></p>
+                        <div class="pokemon-actions">
+                            <a href="index.php?c=equipos&action=removePokemon&equipo_id=<?= $equipo->getId() ?>&pokemon_id=<?= $pokemon->getId() ?>" class="btn-delete">Quitar</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <hr style="margin: 40px 0;">
+
+        <h2>Añadir Pokémon al Equipo</h2>
+
+        <?php if (count($pokemon_en_equipo) >= 5): ?>
+            <p>¡Tu equipo está completo! No puedes añadir más de 5 Pokémon.</p>
+        <?php elseif (empty($pokemon_disponibles)): ?>
+            <p>No tienes más Pokémon capturados para añadir a este equipo.</p>
+        <?php else: ?>
+            <div class="pokemon-grid">
+                <?php foreach ($pokemon_disponibles as $pokemon) : ?>
+                    <div class="pokemon-card">
+                        <img src="public/img/pokemon/<?= $pokemon->getFoto() ?>" alt="<?= $pokemon->getNombre() ?>">
+                        <h3><?= $pokemon->getNombre() ?></h3>
+                        <p>Tipo: <?= $pokemon->getTipo() ?></p>
+                        <div class="pokemon-actions">
+                            <a href="index.php?c=equipos&action=addPokemon&equipo_id=<?= $equipo->getId() ?>&pokemon_id=<?= $pokemon->getId() ?>" class="btn-create">Añadir</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</body>
+</html>

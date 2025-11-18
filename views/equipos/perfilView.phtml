@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <img src="public/img/avatar.jpg" alt="Avatar">
+                <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Pokédex General</a>
+                <a href="index.php?c=equipos&action=listar">Mis Equipos</a>
+                <a href="index.php?c=usuarios&action=logout">Logout</a>
+            </div>
+        </div>
+
+        <h2>Mi Perfil de Entrenador</h2>
+
+        <div class="profile-info">
+            <p><strong>Nombre:</strong> <?= $_SESSION['user']->getNombre() ?></p>
+            <p><strong>Rol:</strong> <?= ucfirst($_SESSION['user']->getRol()) ?></p>
+        </div>
+
+        <hr style="margin: 40px 0;">
+
+        <form action="index.php?c=usuarios&action=perfil" method="POST">
+            <h4>Cambiar Contraseña</h4>
+            <input type="password" name="password" placeholder="Nueva contraseña" required>
+            <input type="password" name="password2" placeholder="Confirmar nueva contraseña" required>
+            <input type="submit" value="Actualizar Contraseña">
+        </form>
+
+    </div>
+</body>
+</html>

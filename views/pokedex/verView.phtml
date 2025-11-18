@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Pokédex</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/pokemon-grid.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <img src="public/img/avatars/<?= $_SESSION['user']->getAvatar() ?: 'avatar.jpg' ?>" alt="Avatar">
+                <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Pokédex General</a>
+                <a href="index.php?c=equipos&action=listar">Mis Equipos</a>
+                <a href="index.php?c=usuarios&action=logout">Logout</a>
+            </div>
+        </div>
+
+        <h2>Mi Pokédex (Capturados)</h2>
+        <?php if (empty($mis_pokemon)): ?>
+            <p>Aún no has capturado ningún Pokémon. ¡Ve a por ellos!</p>
+        <?php else: ?>
+            <div class="pokemon-grid">
+                <?php foreach ($mis_pokemon as $pokemon) : ?>
+                    <div class="pokemon-card">
+                        <img src="public/img/pokemon/<?= $pokemon->getFoto() ?>" alt="<?= $pokemon->getNombre() ?>">
+                        <h3><?= $pokemon->getNombre() ?></h3>
+                        <p>Tipo: <?= $pokemon->getTipo() ?></p>
+                        <div class="pokemon-actions">
+                            <a href="index.php?c=pokedex&action=quitar&id=<?= $pokemon->getId() ?>" class="btn-delete">Liberar</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <hr style="margin: 40px 0;">
+
+        <h2>Pokémon Disponibles para Capturar</h2>
+        <?php if (empty($disponibles)): ?>
+            <p>¡Enhorabuena! Has capturado todos los Pokémon disponibles.</p>
+        <?php else: ?>
+            <div class="pokemon-grid">
+                <?php foreach ($disponibles as $pokemon) : ?>
+                    <div class="pokemon-card">
+                        <img src="public/img/pokemon/<?= $pokemon->getFoto() ?>" alt="<?= $pokemon->getNombre() ?>">
+                        <h3><?= $pokemon->getNombre() ?></h3>
+                        <p>Tipo: <?= $pokemon->getTipo() ?></p>
+                        <div class="pokemon-actions">
+                            <a href="index.php?c=pokedex&action=capturar&id=<?= $pokemon->getId() ?>" class="btn-create">Capturar</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+    </div>
+</body>
+</html>

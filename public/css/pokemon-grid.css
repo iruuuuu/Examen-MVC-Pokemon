@@ -1,0 +1,104 @@
+/* --- Cabecera Principal --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-create {
+    background-color: var(--secondary-color);
+    color: var(--dark-text);
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn-create:hover {
+    background-color: #48d1b5;
+    color: var(--dark-text);
+}
+
+/* --- Cuadrícula de Pokémon --- */
+.pokemon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+.pokemon-card {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pokemon-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pokemon-card img {
+    max-width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.pokemon-card h3 {
+    margin: 10px 0 5px;
+    font-size: 1.1em;
+}
+
+.pokemon-card p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9em;
+}
+
+.pokemon-actions {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pokemon-actions a {
+    display: block;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.btn-details { background-color: var(--primary-color); color: white; }
+.btn-details:hover { background-color: #3a7ac8; color: white; }
+
+.admin-actions { display: flex; gap: 5px; justify-content: center; }
+.admin-actions a { flex: 1; }
+
+.btn-edit { background-color: #f39c12; color: white; }
+.btn-edit:hover { background-color: #e67e22; color: white; }
+
+.btn-delete { background-color: var(--danger-color); color: white; }
+.btn-delete:hover { background-color: var(--danger-hover); color: white; }
+
+/* --- Vista de Equipo Horizontal --- */
+.team-display {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding-bottom: 15px;
+    overflow-x: auto; /* Permite scroll horizontal si los Pokémon no caben */
+    justify-content: flex-start; /* Alinea los Pokémon al inicio */
+}
+
+/* Hacemos que las tarjetas en la vista de equipo sean un poco más pequeñas */
+.team-display .pokemon-card {
+    flex: 0 0 140px; /* No crecen, no se encogen, base de 140px */
+    min-width: 140px;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Usuario</title>
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Panel de usuario</h1>
+
+        <p>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong>.</p>
+
+        <img src="public/img/avatar.jpg" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 20px;">
+
+        <!-- La subida de avatar no está implementada en el controlador de usuarios -->
+        <form action="index.php?c=usuarios&action=setAvatar" method="post" enctype="multipart/form-data">
+            <h4>Edita tu avatar</h4>
+            <input type="file" name="avatar">
+            <input type="submit" value="Subir">
+        </form>
+        <br>
+        <a href="index.php">Volver al inicio</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Pokémon</title>
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Volver al inicio</a>
+                <a href="index.php?c=usuarios&action=logout">Logout</a>
+            </div>
+        </div>
+
+        <h2>Editar Pokémon: <?= $pokemon->getNombre() ?></h2>
+
+        <form action="index.php?c=pokemon&action=editar&id=<?= $pokemon->getId() ?>" method="POST" enctype="multipart/form-data" class="form-centered">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="<?= $pokemon->getNombre() ?>" required>
+
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo" required>
+                <?php
+                $tipos_permitidos = ['electrico', 'fuego', 'tierra', 'lucha', 'agua'];
+                foreach ($tipos_permitidos as $tipo_opcion) {
+                    $selected = ($pokemon->getTipo() == $tipo_opcion) ? 'selected' : '';
+                    echo "<option value='{$tipo_opcion}' {$selected}>" . ucfirst($tipo_opcion) . "</option>";
+                }
+                ?>
+            </select>
+
+            <label for="foto">Foto actual: <?= $pokemon->getFoto() ?></label>
+            <img src="public/img/pokemon/<?= $pokemon->getFoto() ?>" alt="<?= $pokemon->getNombre() ?>" width="100"><br>
+            <input type="hidden" name="foto_actual" value="<?= $pokemon->getFoto() ?>">
+            <label for="foto">Cambiar foto (opcional):</label>
+            <input type="file" id="foto" name="foto">
+
+            <input type="submit" value="Actualizar Pokémon">
+        </form>
+    </div>
+</body>
+</html>

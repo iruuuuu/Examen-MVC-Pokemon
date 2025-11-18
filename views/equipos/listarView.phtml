@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Equipos</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="public/css/pokemon-grid.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-bar">
+            <div class="user-info">
+                <img src="public/img/avatars/<?= $_SESSION['user']->getAvatar() ?: 'avatar.jpg' ?>" alt="Avatar">
+                <span>Hola, <strong><?= $_SESSION['user']->getNombre() ?></strong></span>
+            </div>
+            <div class="user-actions">
+                <a href="index.php">Pokédex General</a>
+                <a href="index.php?c=pokedex&action=ver">Mi Pokédex</a>
+                <a href="index.php?c=usuarios&logout=1">Logout</a>
+            </div>
+        </div>
+
+        <h2>Mis Equipos Pokémon</h2>
+
+        <?php if (empty($mis_equipos)): ?>
+            <p>Aún no has creado ningún equipo.</p>
+        <?php else: ?>
+            <ul class="item-list">
+                <?php foreach ($mis_equipos as $equipo) : ?>
+                    <li>
+                        <!-- En el futuro, este enlace llevará a la vista detallada del equipo -->
+                        <a href="index.php?c=equipos&action=ver&id=<?= $equipo->getId() ?>"><?= $equipo->getNombre() ?></a>
+                        <a class="delete-link" href="index.php?c=equipos&action=eliminar&id=<?= $equipo->getId() ?>" onclick="return confirm('¿Estás seguro de que quieres eliminar el equipo <?= $equipo->getNombre() ?>?');">
+                            Eliminar Equipo
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <hr style="margin: 40px 0;">
+
+        <form action="index.php?c=equipos&action=crear" method="POST">
+            <h4>Crear Nuevo Equipo</h4>
+            <input type="text" name="nombre" placeholder="Nombre del nuevo equipo" required>
+            <input type="submit" value="Crear Equipo">
+        </form>
+    </div>
+</body>
+</html>
